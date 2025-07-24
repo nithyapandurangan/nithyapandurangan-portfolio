@@ -1,9 +1,13 @@
 # 💻 Nithya Pandurangan Portfolio
 
-[![Vercel Deployment](https://img.shields.io/badge/Live%20Demo-Vercel-%23000000?style=for-the-badge&logo=vercel)](https://nithyapandurangan-portfolio.vercel.app/)
-[![Tech Stack](https://img.shields.io/badge/Tech%20Stack-Next.js%2C%20React%2C%20Tailwind-blueviolet?style=for-the-badge)](#tech-stack)
-[![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)](./LICENSE)
-[![Status](https://img.shields.io/badge/Status-Active-brightgreen?style=for-the-badge)]()
+[![Vercel Deployment](https://img.shields.io/badge/Live%20Demo-Vercel-%23000000?style=for-the-badge&logo=vercel)](https://nithyapandurangan-portfolio.vercel.app/)  
+
+[![Tech Stack](https://img.shields.io/badge/Tech%20Stack-Next.js%2C%20React%2C%20Tailwind-blueviolet?style=for-the-badge)](#tech-stack)  
+
+[![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)](./LICENSE)  
+
+[![Status](https://img.shields.io/badge/Status-Active-brightgreen?style=for-the-badge)]()  
+
 
 ---
 

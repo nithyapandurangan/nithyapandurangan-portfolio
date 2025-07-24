@@ -4,7 +4,7 @@ import "./globals.css"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata = {
-  title: "Nithya Pandurangan - Full Stack & Frontend Engineer",
+  title: "Nithya Pandurangan Portfolio",
   description:
     "Aspiring Full Stack Developer skilled in React, UI Design, and Production-Ready Web Apps. Bridging the gap between tech and design.",
   keywords:
@@ -14,15 +14,11 @@ export const metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://nithyapandurangan.dev",
-    title: "Nithya Pandurangan - Full Stack & Frontend Engineer",
-    description: "Aspiring Full Stack Developer skilled in React, UI Design, and Production-Ready Web Apps",
+    url: "https://nithyapandurangan-portfolio.vercel.app",
+    title: "Nithya Pandurangan Portfolio",
+    description:
+      "Aspiring Full Stack Developer skilled in React, UI Design, and Production-Ready Web Apps",
     siteName: "Nithya Pandurangan Portfolio",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Nithya Pandurangan - Full Stack & Frontend Engineer",
-    description: "Aspiring Full Stack Developer skilled in React, UI Design, and Production-Ready Web Apps",
   },
   robots: {
     index: true,
@@ -35,7 +31,9 @@ export const metadata = {
       "max-snippet": -1,
     },
   },
-    generator: 'v0.dev'
+  icons: {
+    icon: "/favicon.ico",
+  },
 }
 
 export default function RootLayout({ children }) {

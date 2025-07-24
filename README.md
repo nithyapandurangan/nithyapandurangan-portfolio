@@ -32,7 +32,7 @@ This portfolio is crafted using the following cutting-edge technologies:
 ## 📡 Deployment
 
 🌐 Live Portfolio:  
-👉 [https://nithyapandurangan-portfolio.vercel.app/](https://nithyapandurangan-portfolio.vercel.app/)
+ [https://nithyapandurangan-portfolio.vercel.app/](https://nithyapandurangan-portfolio.vercel.app/)
 
 Deployed with [Vercel](https://vercel.com/) for fast, serverless hosting and automatic CI/CD.
 

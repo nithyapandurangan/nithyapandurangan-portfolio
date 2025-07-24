@@ -5,6 +5,4 @@
 
 ## Deployment
 
-Your project is live at:
 
-**[https://vercel.com/nithya-ps-projects-0b9129f7/v0-nithya-pandurangan-portfolio](https://vercel.com/nithya-ps-projects-0b9129f7/v0-nithya-pandurangan-portfolio)**

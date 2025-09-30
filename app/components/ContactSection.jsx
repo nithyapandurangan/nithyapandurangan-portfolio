@@ -111,7 +111,7 @@ export default function ContactSection() {
                   </div>
                   <div>
                     <h4 className="font-semibold text-white">Location</h4>
-                    <p className="text-gray-300">Hyderabad, India – open to remote & hybrid roles!</p>
+                    <p className="text-gray-300">Chennai, India – open to remote & hybrid roles!</p>
                   </div>
                 </div>
               </motion.div>

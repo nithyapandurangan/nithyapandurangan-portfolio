@@ -1,8 +1,8 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { useState } from "react"
-import { ExternalLink } from "lucide-react"
+import { useState, useRef, useEffect } from "react"
+import { ExternalLink, ChevronLeft, ChevronRight } from "lucide-react"
 import Image from "next/image"
 
 const skillsData = {
@@ -11,7 +11,7 @@ const skillsData = {
     color: "#E41F7B",
   },
   Databases: {
-    skills: ["MySQL", "MongoDB", "PostgreSQL"],
+    skills: ["MySQL", "MongoDB", "PostgreSQL", "Firebase", "Cloud SQL"],
     color: "#E41F7B",
   },
   "Frameworks & Libraries": {
@@ -29,20 +29,34 @@ const skillsData = {
     ],
     color: "#E41F7B",
   },
-  Tools: {
-    skills: ["Git", "GitHub", "GitLab", "Jenkins", "Docker", "Postman API", "SonarQube", "Figma", "Canva"],
+  "Cloud & DevOps": {
+    skills: [
+      "Google Cloud Platform (GCP)",
+      "AWS",
+      "Vercel",
+      "Git", 
+      "GitHub",
+      "GitLab",
+      "Jenkins", 
+      "Docker",
+      "CI/CD",
+      "REST APIs", 
+      "Postman API", 
+      "SonarQube"],
     color: "#E41F7B",
   },
-  Coursework: {
+   "GenAI & Automation": {
     skills: [
-      "Data Structures & Algorithms",
-      "Agile Scrum",
-      "DevOps",
-      "Object Oriented Programming",
-      "Database Management Systems",
-      "AI & ML",
-      "Operating Systems",
-      "Computer Networks",
+      "UiPath",
+      "Power Automate",
+      "Power Apps",
+      "Excel Automation",
+      "UI Automation",
+      "Robot Process Automation (RPA)",
+      "ChatGPT",
+      "Claude",
+      "Gemini",
+      "Prompt Engineering",
     ],
     color: "#E41F7B",
   },
@@ -53,6 +67,23 @@ const skillsData = {
 }
 
 const certificationsData = [
+  {
+    title: "UiPath Associate Automation Developer",
+    issuer: "UiPath Academy",
+    date: "September 2025",
+    description:
+      "Certified in building, managing, and deploying enterprise-grade automations with UiPath Studio and Orchestrator.",
+    image: "/UiPathCert.png", 
+    verifyUrl: "https://credentials.uipath.com/608f8e3b-b388-4f93-93e3-f11378b1f9fa#acc.NVQcAhCd", 
+    technologies: ["UiPath Studio", "RPA", "Automation"],
+    detailedDescription:
+      "The certification demonstrates the ability to design, build, test, & deploy automation workflows using UiPath Studio & follow best practices for scalable enterprise automation solutions.",
+    features: [
+      "Hands-on automation projects with UiPath Studio",
+      "Knowledge of Orchestrator for deployment & management",
+      "Strong grasp of UI, Excel and Email Automation",
+    ],
+  },
     {
     title: "Worldline PayTech Pioneer Course",
     issuer: "Worldline Global Services",
@@ -84,7 +115,6 @@ const certificationsData = [
     features: [
       "Exposure to industry-relevant CS topics from IIT faculty",
       "Recognized by NPTEL for academic consistency",
-      "50+ weeks of learning",
       "65%+ scores in all courses",
     ],
   },
@@ -103,15 +133,54 @@ const certificationsData = [
                 "Deep understanding of inclusive design", 
                 "Completed peer reviews and client-style design briefs", ],
   },
+  
 ]
 
 export default function SkillsSection() {
   const [hoveredSkill, setHoveredSkill] = useState(null)
   const [flippedCard, setFlippedCard] = useState(null)
   const [selectedCategory, setSelectedCategory] = useState(null)
+  const [canScrollLeft, setCanScrollLeft] = useState(false)
+  const [canScrollRight, setCanScrollRight] = useState(true)
+  const scrollContainerRef = useRef(null)
 
   const handleCardClick = (index) => {
     setFlippedCard(flippedCard === index ? null : index)
+  }
+
+  const checkScroll = () => {
+    if (scrollContainerRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current
+      setCanScrollLeft(scrollLeft > 0)
+      setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 1)
+    }
+  }
+
+  useEffect(() => {
+    checkScroll()
+    const container = scrollContainerRef.current
+    if (container) {
+      container.addEventListener('scroll', checkScroll)
+      window.addEventListener('resize', checkScroll)
+      return () => {
+        container.removeEventListener('scroll', checkScroll)
+        window.removeEventListener('resize', checkScroll)
+      }
+    }
+  }, [])
+
+  const scrollCertifications = (direction) => {
+    if (scrollContainerRef.current) {
+      const container = scrollContainerRef.current
+      const cardWidth = container.querySelector('.cert-card')?.offsetWidth || 400
+      const gap = 32 // 2rem gap
+      const scrollAmount = cardWidth + gap
+      
+      container.scrollBy({
+        left: direction === 'left' ? -scrollAmount : scrollAmount,
+        behavior: 'smooth'
+      })
+    }
   }
 
   return (
@@ -139,8 +208,8 @@ export default function SkillsSection() {
               viewport={{ once: true }}
               className="relative overflow-hidden"
             >
-              {/* Skills category cards - Added fixed height and flex properties */}
-              <div className="bg-gray-900/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-gray-700 relative overflow-hidden h-full flex flex-col justify-between min-h-[200px]"> {/* Added min-h and flex properties */}
+              {/* Skills category cards */}
+              <div className="bg-gray-900/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-gray-700 relative overflow-hidden h-full flex flex-col justify-between min-h-[200px]">
                 <div className="relative z-10 flex-grow"> 
                   <div className="flex items-center space-x-2 mb-4">
                     <div className="text-[#E41F7B] text-lg font-mono">&lt;&gt;</div>
@@ -219,145 +288,236 @@ export default function SkillsSection() {
           </div>
         </motion.div>
 
-        {/* Certifications - Project card style */}
+        {/* Certifications with horizontal scroll */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
+          className="relative"
         >
-          <h3 className="text-3xl font-bold text-center text-white mb-12">Certifications</h3>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {certificationsData.map((cert, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="h-[550px] md:h-[500px] perspective-1000"
+          {/* Header with navigation buttons */}
+          <div className="flex justify-between items-center mb-12">
+            <h3 className="text-3xl font-bold text-white">Certifications</h3>
+            
+            {/* Navigation buttons for desktop */}
+            <div className="hidden md:flex gap-2">
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => scrollCertifications('left')}
+                disabled={!canScrollLeft}
+                className={`p-2 rounded-full transition-all ${
+                  canScrollLeft 
+                    ? 'bg-[#E41F7B] hover:bg-[#86003C] text-white' 
+                    : 'bg-gray-800/50 text-gray-500 cursor-not-allowed'
+                }`}
               >
+                <ChevronLeft className="w-6 h-6" />
+              </motion.button>
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => scrollCertifications('right')}
+                disabled={!canScrollRight}
+                className={`p-2 rounded-full transition-all ${
+                  canScrollRight 
+                    ? 'bg-[#E41F7B] hover:bg-[#86003C] text-white' 
+                    : 'bg-gray-800/50 text-gray-500 cursor-not-allowed'
+                }`}
+              >
+                <ChevronRight className="w-6 h-6" />
+              </motion.button>
+            </div>
+          </div>
+
+          {/* Scrollable container */}
+          <div className="relative">
+            {/* Mobile navigation buttons */}
+            <div className="flex md:hidden justify-center gap-2 mb-4">
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => scrollCertifications('left')}
+                disabled={!canScrollLeft}
+                className={`p-2 rounded-full transition-all ${
+                  canScrollLeft 
+                    ? 'bg-[#E41F7B] hover:bg-[#86003C] text-white' 
+                    : 'bg-gray-800/50 text-gray-500 cursor-not-allowed'
+                }`}
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </motion.button>
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => scrollCertifications('right')}
+                disabled={!canScrollRight}
+                className={`p-2 rounded-full transition-all ${
+                  canScrollRight 
+                    ? 'bg-[#E41F7B] hover:bg-[#86003C] text-white' 
+                    : 'bg-gray-800/50 text-gray-500 cursor-not-allowed'
+                }`}
+              >
+                <ChevronRight className="w-5 h-5" />
+              </motion.button>
+            </div>
+
+            {/* Certifications carousel */}
+            <div 
+              ref={scrollContainerRef}
+              className="flex gap-8 overflow-x-auto scrollbar-hide scroll-smooth pb-4"
+              style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+            >
+              {certificationsData.map((cert, index) => (
                 <motion.div
-                  className="relative w-full h-full cursor-pointer preserve-3d"
-                  animate={{ rotateY: flippedCard === index ? 180 : 0 }}
-                  transition={{ duration: 0.6 }}
-                  onClick={() => handleCardClick(index)}
-                  whileHover={{ scale: 1.02 }}
+                  key={index}
+                  initial={{ opacity: 0, y: 50 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                  className="cert-card flex-shrink-0 w-full sm:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.5rem)] h-[550px] md:h-[500px] perspective-1000"
                 >
-                  {/* Front of card */}
-                  <div className="absolute inset-0 w-full h-full backface-hidden">
-                    <div className="bg-gray-900/80 backdrop-blur-sm rounded-xl shadow-lg border border-gray-700 overflow-hidden h-full flex flex-col relative">
-                      <div className="relative z-10">
-                        {/* Certificate Image */}
-                        <div className="relative overflow-hidden group h-48 z-10">
-                          <Image
-                            src={cert.image || "/placeholder.svg"}
-                            alt={cert.title}
-                            width={400}
-                            height={300}
-                            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-                          />
-                          <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                            <span className="text-white text-sm font-medium">Click to flip</span>
-                          </div>
-                        </div>
-
-                        {/* Certificate Content */}
-                        <div className="p-6 flex-1 flex flex-col relative z-10">
-                          <h3 className="text-xl font-bold text-white mb-3 line-clamp-2">{cert.title}</h3>
-                          <p className="text-[#E41F7B] font-semibold mb-2">{cert.issuer}</p>
-                          <p className="text-gray-300 text-sm mb-4 flex-1 leading-relaxed line-clamp-4">
-                            {cert.description}
-                          </p>
-
-                          {/* Technologies */}
-                          <div className="flex flex-wrap gap-2 mb-4">
-                            {cert.technologies.map((tech, techIndex) => (
-                              <span
-                                key={techIndex}
-                                className="px-2 py-1 bg-gray-800/80 text-gray-300 text-xs rounded-full border border-gray-600/60"
-                              >
-                                {tech}
-                              </span>
-                            ))}
+                  <motion.div
+                    className="relative w-full h-full cursor-pointer preserve-3d"
+                    animate={{ rotateY: flippedCard === index ? 180 : 0 }}
+                    transition={{ duration: 0.6 }}
+                    onClick={() => handleCardClick(index)}
+                    whileHover={{ scale: 1.02 }}
+                  >
+                    {/* Front of card */}
+                    <div className="absolute inset-0 w-full h-full backface-hidden">
+                      <div className="bg-gray-900/80 backdrop-blur-sm rounded-xl shadow-lg border border-gray-700 overflow-hidden h-full flex flex-col relative">
+                        <div className="relative z-10">
+                          {/* Certificate Image */}
+                          <div className="relative overflow-hidden group h-48 z-10">
+                            <Image
+                              src={cert.image || "/placeholder.svg"}
+                              alt={cert.title}
+                              width={400}
+                              height={300}
+                              className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                            />
+                            <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                              <span className="text-white text-sm font-medium">Click to flip</span>
+                            </div>
                           </div>
 
-                          {/* Action Button */}
-                          <motion.a
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                            href={cert.verifyUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"    
-                            onClick={(e) => e.stopPropagation()}
-                            className="flex items-center justify-center space-x-2 px-4 py-3 bg-[#E41F7B] hover:bg-[#86003C] text-white text-sm font-medium rounded-xl transition-colors mt-auto"
-                          >
-                            <ExternalLink className="w-4 h-4" />
-                            <span>View Certificate</span>
-                          </motion.a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                          {/* Certificate Content */}
+                          <div className="p-6 flex-1 flex flex-col relative z-10">
+                            <h3 className="text-xl font-bold text-white mb-3 line-clamp-2">{cert.title}</h3>
+                            <p className="text-[#E41F7B] font-semibold mb-2">{cert.issuer}</p>
+                            <p className="text-gray-300 text-sm mb-4 flex-1 leading-relaxed line-clamp-4">
+                              {cert.description}
+                            </p>
 
-                  {/* Back of card */}
-                  <div className="absolute inset-0 w-full h-full backface-hidden rotate-y-180">
-                    <div className="bg-gray-900/80 backdrop-blur-sm rounded-xl shadow-lg border border-gray-700 h-full flex flex-col p-6 relative overflow-hidden">
-                      <div className="relative z-10">
-                        <h3 className="text-xl font-bold text-white mb-4">{cert.title}</h3>
-
-                        <div className="flex-1 space-y-4">
-                          <div>
-                            <h4 className="text-[#E41F7B] font-semibold mb-2">Detailed Description</h4>
-                            <p className="text-gray-300 text-sm leading-relaxed">{cert.detailedDescription}</p>
-                          </div>
-
-                          <div>
-                            <h4 className="text-[#E41F7B] font-semibold mb-2">Key Features</h4>
-                            <ul className="space-y-1">
-                              {cert.features.map((feature, featureIndex) => (
-                                <li key={featureIndex} className="text-gray-300 text-sm flex items-center space-x-2">
-                                  <span className="w-1.5 h-1.5 bg-[#E41F7B] rounded-full"></span>
-                                  <span>{feature}</span>
-                                </li>
+                            {/* Technologies */}
+                            <div className="flex flex-wrap gap-2 mb-4">
+                              {cert.technologies.map((tech, techIndex) => (
+                                <span
+                                  key={techIndex}
+                                  className="px-2 py-1 bg-gray-800/80 text-gray-300 text-xs rounded-full border border-gray-600/60"
+                                >
+                                  {tech}
+                                </span>
                               ))}
-                            </ul>
+                            </div>
+
+                            {/* Action Button */}
+                            <motion.a
+                              whileHover={{ scale: 1.05 }}
+                              whileTap={{ scale: 0.95 }}
+                              href={cert.verifyUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"    
+                              onClick={(e) => e.stopPropagation()}
+                              className="flex items-center justify-center space-x-2 px-4 py-3 bg-[#E41F7B] hover:bg-[#86003C] text-white text-sm font-medium rounded-xl transition-colors mt-auto"
+                            >
+                              <ExternalLink className="w-4 h-4" />
+                              <span>View Certificate</span>
+                            </motion.a>
                           </div>
-                        </div>
-
-                        <div className="flex space-x-3 mt-6">
-                          <motion.a
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                            href={cert.verifyUrl}
-                            target="_blank" 
-                            rel="noopener noreferrer" 
-                            onClick={(e) => e.stopPropagation()}
-                            className="flex-1 flex items-center justify-center space-x-2 px-4 py-3 bg-[#E41F7B] hover:bg-[#86003C] text-white text-sm font-medium rounded-xl transition-colors"
-                          >
-                            <ExternalLink className="w-4 h-4" />
-                            <span>View Certificate</span>
-                          </motion.a>
-
-                          <motion.button
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                            onClick={() => setFlippedCard(null)}
-                            className="px-4 py-3 border-2 border-gray-600/80 text-gray-300 hover:bg-gray-800/80 text-sm font-medium rounded-xl transition-colors"
-                          >
-                            Back
-                          </motion.button>
                         </div>
                       </div>
                     </div>
-                  </div>
+
+                    {/* Back of card */}
+                    <div className="absolute inset-0 w-full h-full backface-hidden rotate-y-180">
+                      <div className="bg-gray-900/80 backdrop-blur-sm rounded-xl shadow-lg border border-gray-700 h-full flex flex-col p-6 relative overflow-hidden">
+                        <div className="relative z-10">
+                          <h3 className="text-xl font-bold text-white mb-4">{cert.title}</h3>
+
+                          <div className="flex-1 space-y-4">
+                            <div>
+                              <h4 className="text-[#E41F7B] font-semibold mb-2">Detailed Description</h4>
+                              <p className="text-gray-300 text-sm leading-relaxed">{cert.detailedDescription}</p>
+                            </div>
+
+                            <div>
+                              <h4 className="text-[#E41F7B] font-semibold mb-2">Key Features</h4>
+                              <ul className="space-y-1">
+                                {cert.features.map((feature, featureIndex) => (
+                                  <li key={featureIndex} className="text-gray-300 text-sm flex items-center space-x-2">
+                                    <span className="w-1.5 h-1.5 bg-[#E41F7B] rounded-full"></span>
+                                    <span>{feature}</span>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          </div>
+
+                          <div className="flex space-x-3 mt-6">
+                            <motion.a
+                              whileHover={{ scale: 1.05 }}
+                              whileTap={{ scale: 0.95 }}
+                              href={cert.verifyUrl}
+                              target="_blank" 
+                              rel="noopener noreferrer" 
+                              onClick={(e) => e.stopPropagation()}
+                              className="flex-1 flex items-center justify-center space-x-2 px-4 py-3 bg-[#E41F7B] hover:bg-[#86003C] text-white text-sm font-medium rounded-xl transition-colors"
+                            >
+                              <ExternalLink className="w-4 h-4" />
+                              <span>View Certificate</span>
+                            </motion.a>
+
+                            <motion.button
+                              whileHover={{ scale: 1.05 }}
+                              whileTap={{ scale: 0.95 }}
+                              onClick={() => setFlippedCard(null)}
+                              className="px-4 py-3 border-2 border-gray-600/80 text-gray-300 hover:bg-gray-800/80 text-sm font-medium rounded-xl transition-colors"
+                            >
+                              Back
+                            </motion.button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
                 </motion.div>
-              </motion.div>
-            ))}
+              ))}
+            </div>
           </div>
         </motion.div>
       </div>
+
+      {/* CSS for hiding scrollbar and 3D transforms */}
+      <style jsx>{`
+        .scrollbar-hide::-webkit-scrollbar {
+          display: none;
+        }
+        .preserve-3d {
+          transform-style: preserve-3d;
+        }
+        .backface-hidden {
+          backface-visibility: hidden;
+        }
+        .rotate-y-180 {
+          transform: rotateY(180deg);
+        }
+        .perspective-1000 {
+          perspective: 1000px;
+        }
+      `}</style>
     </section>
   )
 }

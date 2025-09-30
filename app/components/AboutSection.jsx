@@ -16,7 +16,7 @@ export default function AboutSection() {
         >
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">About Me</h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Aspiring Full Stack & Frontend Developer passionate about building modern, intuitive, and scalable web applications. Skilled in React, UI/UX Design, and production-ready web apps.
+            Hi! I'm Nithya - a Full Stack Developer passionate about building modern, intuitive, and scalable web applications. Skilled in React, UI/UX Design, Automation and production-ready web apps.
           </p>
         </motion.div>
 
@@ -38,11 +38,11 @@ export default function AboutSection() {
               </div>
               <div className="flex items-center space-x-3">
                 <Code className="w-10 h-10 text-[#FF8BA0]" />
-                <span className="text-gray-300 text-sm">Underwent Paytech Pioneer Full Stack Development Training by Worldline Global Services for 7 months</span>
+                <span className="text-gray-300 text-sm">Current Full-Stack Automation Engineer Intern at Worldline, working on Gen AI, Automation & Full-Stack solutions</span>
               </div>
               <div className="flex items-center space-x-3">
                 <Users className="w-4 h-4 text-[#FF8BA0]" />
-                <span className="text-gray-300 text-sm">4+ Industry Internships as a Fresher</span>
+                <span className="text-gray-300 text-sm">Hands-on experience with Gen AI, Automation, React & Next.js </span>
               </div>
             </div>
           </motion.div>
@@ -149,7 +149,7 @@ export default function AboutSection() {
           viewport={{ once: true }}
           className="text-center"
         >
-          <a href="/Nithya_Pandurangan_FullStackResume.pdf" download>
+          <a href="/Nithya_Pandurangan_Resume.pdf" download>
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}

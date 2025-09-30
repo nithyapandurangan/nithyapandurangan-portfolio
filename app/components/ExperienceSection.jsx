@@ -4,10 +4,19 @@ import { motion } from "framer-motion"
 import { Briefcase, Calendar, MapPin } from "lucide-react"
 
 const experienceData = [
+   {
+    title: "Full-Stack Automation Engineer Intern",
+    company: "Worldline Global Services",
+    location: "Chennai, India (Hybrid)",
+    period: "Aug 2025 – Present",
+    description:
+      "Onboarded as a full-time PayTech GET Intern, contributing to the Automation team at Worldline Global Services. Responsible for designing and developing transversal products using cutting-edge technologies, including Gen AI, automation, and full-stack solutions. My work directly supports Worldline's mission by building efficient tools that streamline operations and drive innovation within the paytech industry.",
+    technologies: ["Gen AI", "Automation", "Full-Stack Development"],
+  },
   {
     title: "Trainee Full Stack Engineer",
     company: "Worldline Global Services",
-    location: "Chennai, India",
+    location: "Chennai, India (Remote)",
     period: "Nov 2024 – May 2025",
     description:
       "Mastered comprehensive full-stack development training, completing all technical assignments with exceptional performance including Linux Commands, Microservices, Java, C++, PostgreSQL, MongoDB, SonarQube, Jenkins, Postman, GitLab, Git, and CI/CD Pipelines, achieving 92% score on the final assessment.",
@@ -16,7 +25,7 @@ const experienceData = [
   {
     title: "Full Stack Development Intern",
     company: "Manasa Spices Pvt. Ltd.",
-    location: "Chennai, India",
+    location: "Chennai, India (Remote)",
     period: "Oct 2024 – Nov 2024",
     description:
       "Developed a fully responsive and functional e-commerce website that facilitates online sales & showcases the company's diverse range of spices sourced directly from farmers in Kerala and Tamil Nadu. Designed and implemented responsive Next.js-based UI using a Figma-driven design system, resulting in improved user engagement and streamlined purchasing process.",
@@ -25,7 +34,7 @@ const experienceData = [
   {
     title: "Software Development Intern",
     company: "Ingenium Automation Pvt. Ltd.",
-    location: "Chennai, India",
+    location: "Chennai, India (Onsite)",
     period: "May 2024 – Sep 2024",
     description:
       "Built & deployed a feature-rich website for an IoT-based startup using ReactJS, Framer Motion, and Tailwind CSS, enhancing user engagement by effectively showcasing their products, solutions, and services offered. Developed the UI and design-system for the company to create an intuitive user experience .",
@@ -34,7 +43,7 @@ const experienceData = [
   {
     title: "UI/UX Mobile App Development Intern",
     company: "MATIC - Modern Agriculture Technology Innovation Centre, IIITDM Kanchipuram",
-    location: "Chennai, India",
+    location: "Chennai, India (Hybrid)",
     period: "Dec 2023 – Mar 2024",
     description:
       "Designed the interface of a cutting-edge Android mobile application for an IoT-based AgriTech startup which simplifies Mango De-sapping Machine procurement for farmers, FPOS, and packhouse owners through Figma prototyping and Flutter implementation, achieving 80% improvement in customer satisfaction metrics. Conducted user research and usability testing to optimize the user experience.",

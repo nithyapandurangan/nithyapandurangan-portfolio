@@ -157,7 +157,7 @@ export default function HeroSection() {
 
   const downloadResume = () => {
     const link = document.createElement("a")
-    link.href = "/resume.pdf"
+    link.href = "/Nithya_Pandurangan_Resume.pdf"
     link.download = "Nithya_Pandurangan_Resume.pdf"
     link.click()
   }
